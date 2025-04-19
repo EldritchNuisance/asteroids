@@ -22,6 +22,8 @@ def main():
                 pygame.quit()
                 return
 
+        # Update the player
+        player.update(dt)
         # Fill the screen with black
         screen.fill("black")
         # Update the player
