@@ -3,6 +3,8 @@ from constants import *
 from circleshape import CircleShape
 
 class Player(CircleShape):
+
+    
     def __init__(self, x, y):
         # Call the parent class (CircleShape) constructor
         super().__init__(x, y, PLAYER_RADIUS)
