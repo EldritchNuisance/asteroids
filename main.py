@@ -30,16 +30,25 @@ def main():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 return
-            
+
+        # Update the objects    
         updatable.update(dt)
-        # Update the player
-        # player.update(dt)
+        # Check for collisions between player and asteroids
+        for asteroid in asteroids:
+            if player.collide(asteroid):
+                print("Game Over!")
+                pygame.quit()
+                # Handle collision (e.g., end game, reduce health, etc.)
+        
         # Fill the screen with black
         screen.fill("black")
-        # Update the player
+
+        # Update drawable objects
+        # This is where we draw the player and asteroids
+        # We can use the sprite groups to update and draw all objects
         for obj in drawable:
             obj.draw(screen)
-        # player.draw(screen)
+        
         # Update the display
         pygame.display.flip()
 
