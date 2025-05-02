@@ -35,11 +35,11 @@ class Player(CircleShape):
 
         if keys[pygame.K_a]:
             # Rotate left
-            self.rotate(dt)
+            self.rotate(-dt)
             
         if keys[pygame.K_d]:
             # Rotate right
-            self.rotate(-dt)
+            self.rotate(dt)
 
         if keys[pygame.K_w]:
             # Move forward
