@@ -44,11 +44,16 @@ def main():
                 sys.exit()
                 # Handle collision (e.g., end game, reduce health, etc.)
         
+        #Destroy asteroid if shot hits
+        for shot in shots:
+            if shot.collide(asteroid):
+                shot.kill()
+                asteroid.kill()
+
         # Fill the screen with black
         screen.fill("black")
 
-        # Update drawable objects
-        # This is where we draw the player and asteroids
+        # Update drawable objects. This is where we draw the player and asteroids. 
         # We can use the sprite groups to update and draw all objects
         for obj in drawable:
             obj.draw(screen)
