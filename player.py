@@ -10,6 +10,7 @@ class Player(CircleShape):
         # Call the parent class (CircleShape) constructor
         super().__init__(x, y, PLAYER_RADIUS)
         self.rotation = 0
+        self.timer = 0
         
     #     # Initialize player-specific attributes
     #     self.color = (0, 255, 0)  # Green color for the player
@@ -32,31 +33,41 @@ class Player(CircleShape):
         self.rotation += PLAYER_TURN_SPEED * dt
     
     def update(self, dt):
+        # Get the current state of all keyboard keys
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_a]:
-            # Rotate left
+            # Rotate left (counter-clockwise)
             self.rotate(-dt)
             
         if keys[pygame.K_d]:
-            # Rotate right
+            # Rotate right (clockwise)
             self.rotate(dt)
 
         if keys[pygame.K_w]:
-            # Move forward
+            # Move forward in the direction the player is facing
             self.move(dt)
             
         if keys[pygame.K_s]:
-            # Move backward
+            # Move backward (opposite to the direction the player is facing)
             self.move(-dt)
 
         if keys[pygame.K_SPACE]:
+            # Attempt to shoot a projectile
             self.shoot()
 
-    def shoot(self):
-        shot = Shot(self.position.x, self.position.y)
-        shot.velocity = pygame.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOOT_SPEED
+        if self.timer > 0:
+            # Decrease the shooting cooldown timer
+            self.timer -= dt
 
+    def shoot(self):
+        if self.timer <= 0:  # Only shoot if cooldown is complete
+            shot = Shot(self.position.x, self.position.y)
+            shot.velocity = pygame.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOOT_SPEED
+                # create bullet code
+            self.timer = PLAYER_SHOOT_COOLDOWN  # Reset timer after shooting
+            return True  # or whatever you return when a shot is fired
+        return False  # or whatever you return when a shot can't be fired        
         
     def move(self, dt):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
