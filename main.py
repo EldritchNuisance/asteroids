@@ -1,6 +1,6 @@
-# this allows us to use code from
-# the open-source pygame library
-# throughout this file
+# this allows us to use code from the open-source pygame library throughout this file
+# 
+# 
 import pygame
 import sys
 from constants import *
@@ -51,13 +51,11 @@ def main():
             if player.collide(asteroid):
                 print("Game Over!")
                 sys.exit()
-                # Handle collision (e.g., end game, reduce health, etc.)
-        
-        #Destroy asteroid if shot hits
-        for shot in shots:
-            if shot.collide(asteroid):
-                shot.kill()
-                asteroid.kill()
+        # Check for collisions between shots and asteroids
+            for shot in shots:
+                if shot.collide(asteroid):
+                    shot.kill()
+                    asteroid.kill()
 
         # Fill the screen with black
         screen.fill("black")
